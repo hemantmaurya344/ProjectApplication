@@ -26,6 +26,9 @@ services:
 
 spring-frontend:
     image: spring-backend:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "4200:4200"
 
