@@ -22,7 +22,7 @@ services:
       - mysqldb
 
 spring-frontend:
-    image: spring-backend:${BUILD_NUMBER}
+    image: spring-backend:1
     ports:
       - "4200:4200"
 
