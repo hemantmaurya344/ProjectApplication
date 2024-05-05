@@ -8,8 +8,7 @@ pipeline {
   stages {
     stage('Build and Test') {
       steps {
-        sh 'cd spring-backend'
-        sh 'pwd && ls'
+         dir('spring-backend')
         sh 'mvn clean package'
       }
     }
@@ -34,6 +33,7 @@ pipeline {
       }
       steps{
         script{
+          sh 'cd ..'
           sh 'docker compose up -d'
         }
       }
