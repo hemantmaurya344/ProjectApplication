@@ -9,7 +9,7 @@ pipeline {
     stage('Build and Test') {
       steps {
         sh 'cd spring-backend'
-        sh 'ls'
+        sh 'pwd && ls'
         sh 'mvn clean package'
       }
     }
