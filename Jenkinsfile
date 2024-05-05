@@ -18,11 +18,13 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "hemantmaurya344/sample:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "hemantmaurya344/spring-backend:${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {
         script {
+            sh 'll'
+            sh 'pwd'
             sh 'docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
             docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
