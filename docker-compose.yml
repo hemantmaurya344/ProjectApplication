@@ -11,10 +11,7 @@ services:
       - MYSQL_DATABASE=hobbie_backend_db
 
   spring-backend:
-    image: spring-backend
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: spring-backend:${BUILD_NUMBER}
     ports:
       - "1010:1010"
     environment:
@@ -25,10 +22,7 @@ services:
       - mysqldb
 
 spring-frontend:
-    image: spring-backend:v1
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: spring-backend:${BUILD_NUMBER}
     ports:
       - "4200:4200"
 
