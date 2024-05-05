@@ -35,7 +35,7 @@ pipeline {
       steps{
         script{
           sh 'pwd'
-          sh 'docker-compose up -d -e BUILD_NUMBER=${BUILD_NUMBER}'
+          sh 'docker compose up -d -e BUILD_NUMBER=${BUILD_NUMBER}'
         }
       }
     }
