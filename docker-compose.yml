@@ -25,7 +25,7 @@ services:
       - mysqldb
 
 spring-frontend:
-    image: spring-backend
+    image: spring-backend:v1
     ports:
       - "4200:4200"
 
