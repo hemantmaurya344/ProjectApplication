@@ -32,10 +32,7 @@ pipeline {
       }
       steps{
         script{
-          sh 'docker ps -aqf "name=backend" | xargs docker stop | xargs docker rm'
-          sh 'docker run --name=backend -d -p 1010:1010 $DOCKER_IMAGE'
-          sh 'docker ps -aqf "name=frontend" | xargs docker stop | xargs docker rm'
-          sh 'docker run --name=frontend -d -p 4200:4200 frontend:1'
+          sh 'docker compose up -d'
         }
       }
     }
