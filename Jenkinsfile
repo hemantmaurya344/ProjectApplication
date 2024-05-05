@@ -32,13 +32,10 @@ pipeline {
       }
     }
     stage('Deploy'){
-       environment {
-        DOCKER_IMAGE = "hemantmaurya344/sample:${BUILD_NUMBER}"
-      }
       steps{
         script{
           sh 'pwd'
-          sh 'docker compose up -d'
+          sh 'docker compose up -d -e BUILD_NUMBER=${BUILD_NUMBER}'
         }
       }
     }
