@@ -29,17 +29,14 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-         withCredentials([file(credentialsId: 'sshKey', variable: 'PEM_FILE')]) {
-                    sh '''
-                        chmod 400 $PEM_FILE
-                        ssh -i $PEM_FILE ubuntu@13.49.39.174 "
-                          dir('/var/lib/jenkins/workspace/ProjectApp')
-                            sh 'sudo su'
-                            sh 'docker compose up -d'
-                        "
-                    '''
-         }
-         
+             sshagent(credentials: ['ssh-credentials-id']) {
+                  sh '''
+                      [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+                      ssh-keyscan -t rsa,dsa example.com >> ~/.ssh/known_hosts
+                      ssh user@example.com ...
+                  '''
+            }
+          sh 'docker compose up -d'
         }
       }
     }
