@@ -29,8 +29,7 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-            sh ' echo "
-              version: "2"
+            sh ' echo "version: "2"
               services:
                 mysqldb:
                   image: mysql:8-oracle
