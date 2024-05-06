@@ -29,14 +29,40 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-             sshagent(credentials: ['ssh-credentials-id']) {
-                  sh '''
-                      [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-                      ssh-keyscan -t rsa,dsa example.com >> ~/.ssh/known_hosts
-                      ssh user@example.com ...
-                  '''
-            }
-          sh 'docker compose up -d'
+            sh ' echo "
+              version: "2"
+              services:
+                mysqldb:
+                  image: mysql:8-oracle
+              
+                  networks:
+                    - springmysql-net
+                  environment:
+                    - MYSQL_ROOT_PASSWORD=1
+                    - MYSQL_DATABASE=hobbie_backend_db
+              
+                spring-backend:
+                  image: spring-backend:1
+                  ports:
+                    - "1010:1010"
+                  environment:
+                    - spring.datasource.url=jdbc:mysql://mysqldb:3306/hobbie_backend_db?useSSL=false&serverTimezone=Europe/Paris
+                  networks:
+                    - springmysql-net
+                  depends_on:
+                    - mysqldb
+              
+                spring-frontend:
+                  image: spring-backend:1
+                  ports:
+                    - "4200:4200"
+          
+              networks:
+                springmysql-net: 
+              " > docker-compose.yml
+            '
+          
+            sh 'docker compose up -d'
         }
       }
     }
