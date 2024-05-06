@@ -29,7 +29,13 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          sh 'sh /home/ubuntu/scrips/docker.sh'
+          sh 'echo 
+          "#!/bin/sh
+              docker compose up -d
+          " > docker.sh
+          chmod +x docker.sh
+          ./docker.sh
+          '
         }
       }
     }
