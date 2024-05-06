@@ -29,12 +29,12 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          sh 'echo "#!/bin/sh
-              docker compose up -d
-          " > docker.sh
-          chmod +x docker.sh
-          ./docker.sh
-          '
+           sh '''
+              echo "#!/bin/sh" > docker.sh
+              echo "docker compose up -d" >> docker.sh
+              chmod +x docker.sh
+              ./docker.sh
+          '''
         }
       }
     }
