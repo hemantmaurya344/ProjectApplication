@@ -29,10 +29,17 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          sh 'ssh -i ${secretFile} ubuntu@13.49.39.174'
-          sh 'sudo su'
-          dir('/var/lib/jenkins/workspace/ProjectApp')
-          sh 'docker compose up -d'
+         withCredentials([file(credentialsId: 'sshKey', variable: 'PEM_FILE')]) {
+                    sh '''
+                        chmod 400 $PEM_FILE
+                        ssh -i $PEM_FILE ubuntu@13.49.39.174 "
+                          dir('/var/lib/jenkins/workspace/ProjectApp')
+                            sh 'sudo su'
+                            sh 'docker compose up -d'
+                        "
+                    '''
+         }
+         
         }
       }
     }
