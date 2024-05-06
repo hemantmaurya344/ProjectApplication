@@ -29,7 +29,9 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          sh 'apt update -y && apt install -y docker-compose-plugin'
+          sh 'ssh -i ${secretFile} ubuntu@13.49.39.174'
+          sh 'sudo su'
+          dir('/var/lib/jenkins/workspace/ProjectApp')
           sh 'docker compose up -d'
         }
       }
