@@ -29,8 +29,7 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          sh 'echo 
-          "#!/bin/sh
+          sh 'echo "#!/bin/sh
               docker compose up -d
           " > docker.sh
           chmod +x docker.sh
