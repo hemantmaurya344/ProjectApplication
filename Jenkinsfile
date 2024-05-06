@@ -31,7 +31,7 @@ pipeline {
         script{
            sh '''
               echo "#!/bin/sh" > docker.sh
-              echo "docker compose up -d" >> docker.sh
+              echo "docker-compose up -d" >> docker.sh
               chmod +x docker.sh
               ./docker.sh
           '''
