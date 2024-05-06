@@ -29,6 +29,7 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
+          sh 'apt install -y docker-compose'
            sh '''
               echo "#!/bin/sh" > docker.sh
               echo "docker-compose up -d" >> docker.sh
