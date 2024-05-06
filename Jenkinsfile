@@ -34,8 +34,7 @@ pipeline {
     stage('Deploy'){
       steps{
         script{
-          sh 'pwd'
-          sh 'docker-compose up -d -e BUILD_NUMBER=${BUILD_NUMBER}'
+          sh 'sh /home/ubuntu/scrips/docker.sh'
         }
       }
     }
